@@ -1,5 +1,6 @@
 'use client';
 
+import Link from "next/link";
 import { useEffect } from 'react';
 
 export default function Error({
@@ -37,12 +38,12 @@ export default function Error({
           >
             Tentar Novamente
           </button>
-          <a
+          <Link
             href="/"
             className="border border-black text-black px-6 py-2 rounded-lg hover:bg-gray-50 transition font-medium"
           >
             Voltar ao Início
-          </a>
+          </Link>
         </div>
 
         <p className="text-gray-500 text-sm mt-8">

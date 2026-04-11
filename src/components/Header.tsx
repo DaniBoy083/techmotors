@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Header() {
   return (
     <header className="w-full bg-white border-b border-gray-200 shadow-sm">
@@ -12,24 +14,24 @@ export default function Header() {
 
           {/* Navigation Links */}
           <nav className="flex items-center space-x-8">
-            <a 
-              href="/" 
+            <Link
+              href="/"
               className="text-gray-700 hover:text-black transition font-medium"
             >
               Home
-            </a>
-            <a 
-              href="/servicos" 
+            </Link>
+            <Link
+              href="/servicos"
               className="text-gray-700 hover:text-black transition font-medium"
             >
               Serviços
-            </a>
-            <a 
-              href="/contato" 
+            </Link>
+            <Link
+              href="/contato"
               className="text-gray-700 hover:text-black transition font-medium"
             >
               Contato
-            </a>
+            </Link>
           </nav>
         </div>
       </div>

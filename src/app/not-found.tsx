@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -32,28 +33,28 @@ export default function NotFound() {
         </div>
 
         <div className="flex gap-4 justify-center flex-col sm:flex-row">
-          <a
+          <Link
             href="/"
             className="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition font-medium"
           >
             Voltar ao Início
-          </a>
-          <a
+          </Link>
+          <Link
             href="/servicos"
             className="border border-black text-black px-6 py-2 rounded-lg hover:bg-gray-50 transition font-medium"
           >
             Ver Serviços
-          </a>
+          </Link>
         </div>
 
         <div className="mt-8 p-4 bg-gray-50 rounded-lg border border-gray-200">
           <p className="text-sm text-gray-600 mb-2">Precisa de ajuda?</p>
-          <a
+          <Link
             href="/contato"
             className="text-black font-medium hover:underline"
           >
             Entre em contato conosco →
-          </a>
+          </Link>
         </div>
       </div>
     </main>
