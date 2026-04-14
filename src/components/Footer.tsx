@@ -43,8 +43,8 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Contato</h4>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <a href="tel:+551198765432" className="hover:text-white transition">
-                  (11) 98765-4321
+                <a href="tel:+5583987654321" className="hover:text-white transition">
+                  (83) 98765-4321
                 </a>
               </li>
               <li>
@@ -53,7 +53,7 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <p>São Paulo, SP</p>
+                <p>João Pessoa, PB</p>
               </li>
             </ul>
           </div>

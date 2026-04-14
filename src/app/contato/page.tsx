@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Contato",
-  description: "Entre em contato com a TechMotors por telefone, email ou visite nossa oficina em São Paulo.",
+  description: "Entre em contato com a TechMotors por telefone, email ou visite nossa oficina em João Pessoa, PB.",
 };
 
 export default function Contato() {
@@ -23,8 +23,8 @@ export default function Contato() {
             <div>
               <h3 className="text-xl font-bold text-black mb-2">Telefone</h3>
               <p className="text-gray-600 text-lg">
-                <a href="tel:+551198765432" className="hover:text-black transition">
-                  (11) 98765-4321
+                <a href="tel:+5583987654321" className="hover:text-black transition">
+                  (83) 98765-4321
                 </a>
               </p>
               <p className="text-gray-500 text-sm mt-1">Seg - Sex: 8h às 18h</p>
@@ -43,9 +43,9 @@ export default function Contato() {
             <div>
               <h3 className="text-xl font-bold text-black mb-2">Localização</h3>
               <p className="text-gray-600">
-                Rua das Oficinas, 123<br />
-                Vila Soco, São Paulo - SP<br />
-                CEP: 01234-567
+                Av. Epitácio Pessoa, 1234<br />
+                Tambauzinho, João Pessoa - PB<br />
+                CEP: 58039-000
               </p>
               <p className="text-gray-500 text-sm mt-1">Estacionamento disponível</p>
             </div>
@@ -96,7 +96,7 @@ export default function Contato() {
                   type="tel"
                   id="telefone"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition"
-                  placeholder="(11) 98765-4321"
+                  placeholder="(83) 98765-4321"
                 />
               </div>
 
