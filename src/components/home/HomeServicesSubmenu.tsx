@@ -2,13 +2,20 @@
 
 import { useState } from "react";
 
-const sections = [
+const defaultSections = [
   { id: "troca-de-oleo", label: "Troca de Óleo" },
   { id: "manutencao-especializada", label: "Manutenção Especializada" },
   { id: "alinhamento-balanceamento", label: "Alinhamento e Balanceamento" },
 ];
 
-export default function HomeServicesSubmenu() {
+type HomeServicesSubmenuProps = {
+  sections?: Array<{
+    id: string;
+    label: string;
+  }>;
+};
+
+export default function HomeServicesSubmenu({ sections = defaultSections }: HomeServicesSubmenuProps) {
   const [isOpen, setIsOpen] = useState(true);
 
   return (

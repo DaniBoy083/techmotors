@@ -1,7 +1,9 @@
 import Link from "next/link";
+import { getContatoInfo } from "@/utils/actions/get-contato-info";
 
-export default function Footer() {
+export default async function Footer() {
   const currentYear = new Date().getFullYear();
+  const contato = await getContatoInfo();
 
   return (
     <footer className="bg-black text-white border-t border-gray-800">
@@ -43,17 +45,17 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Contato</h4>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <a href="tel:+5583987654321" className="hover:text-white transition">
-                  (83) 98765-4321
+                <a href={`tel:${contato.telefone}`} className="hover:text-white transition">
+                  {contato.telefoneDisplay}
                 </a>
               </li>
               <li>
-                <a href="mailto:contato@techmotors.com" className="hover:text-white transition">
-                  contato@techmotors.com
+                <a href={`mailto:${contato.email}`} className="hover:text-white transition">
+                  {contato.email}
                 </a>
               </li>
               <li>
-                <p>João Pessoa, PB</p>
+                <p>{contato.enderecoLinha2}</p>
               </li>
             </ul>
           </div>

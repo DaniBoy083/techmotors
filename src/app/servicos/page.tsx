@@ -1,49 +1,13 @@
 import type { Metadata } from "next";
+import { getServicos } from "@/utils/actions/get-servicos";
 
 export const metadata: Metadata = {
   title: "Serviços",
   description: "Conheça todos os serviços oferecidos pela TechMotors - manutenção, reparos e diagnóstico automotivo.",
 };
 
-export default function Servicos() {
-  const servicos = [
-    {
-      id: 1,
-      titulo: "Manutenção Preventiva",
-      descricao: "Mantenha seu veículo sempre em perfeito estado com nossa manutenção preventiva especializada.",
-      icone: "🔧",
-    },
-    {
-      id: 2,
-      titulo: "Diagnóstico Automotivo",
-      descricao: "Diagnóstico completo com equipamento de alta tecnologia para identificar qualquer problema.",
-      icone: "🖥️",
-    },
-    {
-      id: 3,
-      titulo: "Reparo de Motor",
-      descricao: "Reparos especializados em motores de todas as marcas com garantia de qualidade.",
-      icone: "⚙️",
-    },
-    {
-      id: 4,
-      titulo: "Serviço de Freios",
-      descricao: "Inspeção, manutenção e reparo completo do sistema de freios do seu veículo.",
-      icone: "🛑",
-    },
-    {
-      id: 5,
-      titulo: "Suspensão e Alinhamento",
-      descricao: "Alinhamento de rodas e reparo de suspensão para melhor dirigibilidade e conforto.",
-      icone: "🚙",
-    },
-    {
-      id: 6,
-      titulo: "Ar Condicionado",
-      descricao: "Recarga, limpeza e reparos no sistema de ar condicionado do seu veículo.",
-      icone: "❄️",
-    },
-  ];
+export default async function Servicos() {
+  const servicos = await getServicos();
 
   return (
     <main className="flex-1 bg-white">
@@ -63,7 +27,7 @@ export default function Servicos() {
               key={servico.id}
               className="bg-gray-50 rounded-lg p-6 hover:shadow-lg transition border border-gray-200"
             >
-              <div className="text-5xl mb-4">{servico.icone}</div>
+              {servico.icone ? <div className="text-5xl mb-4">{servico.icone}</div> : null}
               <h3 className="text-xl font-bold text-black mb-2">{servico.titulo}</h3>
               <p className="text-gray-600 mb-4">{servico.descricao}</p>
               <button className="text-black font-medium hover:underline">

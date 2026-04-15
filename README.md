@@ -103,6 +103,41 @@ DATABASE_URL=
 
 # Vercel
 VERCEL_URL=
+
+# Contato por email (SMTP)
+SMTP_HOST=
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=
+SMTP_PASS=
+CONTACT_FROM_EMAIL=
+CONTACT_TO_EMAIL=
+```
+
+## CMS Cosmic (Home e Serviços)
+
+O projeto consome conteúdo do objeto singleton `home` no Cosmic. Para a Home renderizar serviços com título, descrição e imagem, configure o repeater `services` com os campos:
+
+- `title` (text)
+- `description` (text)
+- `image` (file imagem)
+
+Compatibilidade:
+
+- O app também aceita `titulo` e `descricao` caso os nomes estejam em português.
+- Se algum campo faltar, o app usa fallback local automaticamente.
+
+Exemplo de item em `metadata.services`:
+
+```json
+{
+	"title": "Troca de Óleo",
+	"description": "Substituição de óleo e filtro com checagem rápida de vazamentos.",
+	"image": {
+		"url": "https://cdn.cosmicjs.com/arquivo.jpg",
+		"imgix_url": "https://imgix.cosmicjs.com/arquivo.jpg"
+	}
+}
 ```
 
 ## Roadmap

@@ -1,24 +1,26 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <div className="text-2xl font-bold text-black">
+            <Link
+              href="/"
+              aria-label="Ir para a página inicial"
+              title="TechMotors"
+              className="text-2xl font-bold text-black transition hover:opacity-80"
+            >
               Tech<span className="text-black">Motors</span>
-            </div>
+            </Link>
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden items-center space-x-5 md:flex">
+          {/* Navigation */}
+          <nav className="flex items-center space-x-5">
             <Link
               href="/"
               aria-label="Home"
@@ -44,62 +46,7 @@ export default function Header() {
               <ContactIcon />
             </Link>
           </nav>
-
-          <button
-            type="button"
-            onClick={() => setIsMenuOpen((prev) => !prev)}
-            aria-expanded={isMenuOpen}
-            aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
-            className="inline-flex items-center justify-center p-2 text-black md:hidden"
-          >
-            {isMenuOpen ? (
-              <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M6 6l12 12" />
-                <path d="M18 6L6 18" />
-              </svg>
-            ) : (
-              <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M4 7h16" />
-                <path d="M4 12h16" />
-                <path d="M4 17h16" />
-              </svg>
-            )}
-          </button>
         </div>
-
-        {isMenuOpen ? (
-          <nav className="border-t border-gray-200 py-3 md:hidden">
-            <div className="flex items-center justify-start gap-6">
-              <Link
-                href="/"
-                aria-label="Home"
-                title="Home"
-                className="inline-flex items-center justify-center text-gray-700 transition hover:text-black"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <HomeIcon />
-              </Link>
-              <Link
-                href="/servicos"
-                aria-label="Serviços"
-                title="Serviços"
-                className="inline-flex items-center justify-center text-gray-700 transition hover:text-black"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <ServicesIcon />
-              </Link>
-              <Link
-                href="/contato"
-                aria-label="Contato"
-                title="Contato"
-                className="inline-flex items-center justify-center text-gray-700 transition hover:text-black"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <ContactIcon />
-              </Link>
-            </div>
-          </nav>
-        ) : null}
       </div>
     </header>
   );
