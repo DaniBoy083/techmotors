@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { getServicos } from "@/utils/actions/get-servicos";
+import Image from "next/image";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Serviços",
@@ -27,12 +29,21 @@ export default async function Servicos() {
               key={servico.id}
               className="bg-gray-50 rounded-lg p-6 hover:shadow-lg transition border border-gray-200"
             >
+              {servico.imagemUrl ? (
+                <Image
+                  src={servico.imagemUrl}
+                  alt={`Imagem do serviço ${servico.titulo}`}
+                  width={640}
+                  height={360}
+                  className="mb-4 h-44 w-full rounded-md object-cover"
+                />
+              ) : null}
               {servico.icone ? <div className="text-5xl mb-4">{servico.icone}</div> : null}
               <h3 className="text-xl font-bold text-black mb-2">{servico.titulo}</h3>
               <p className="text-gray-600 mb-4">{servico.descricao}</p>
-              <button className="text-black font-medium hover:underline">
+              <Link href={`/servicos/${servico.slug}`} className="text-black font-medium hover:underline">
                 Saiba Mais →
-              </button>
+              </Link>
             </div>
           ))}
         </div>
