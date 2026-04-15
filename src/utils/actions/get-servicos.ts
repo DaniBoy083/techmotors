@@ -140,7 +140,7 @@ export async function getServicos(): Promise<Servico[]> {
           ctaUrl: getStringField(item, ["cta_url", "ctaUrl"]),
         } satisfies Servico;
       })
-      .filter((item): item is Servico => item !== null);
+      .filter((item): item is NonNullable<typeof item> => item !== null);
 
     return apiServicos;
   } catch {

@@ -143,7 +143,7 @@ export async function getHomePageData(): Promise<HomePageData> {
           imagemUrl: item.image?.imgix_url ?? item.image?.url,
         } satisfies HomeServico;
       })
-      .filter((item): item is HomeServico => item !== null);
+      .filter((item): item is NonNullable<typeof item> => item !== null);
 
     return {
       hero: {
