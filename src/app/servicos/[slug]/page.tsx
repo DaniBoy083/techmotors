@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getServicoBySlug, getServicos } from "@/utils/actions/get-servicos";
+import { getCosmicPageBySlug, getCosmicPages } from "@/utils/actions/get-cosmic-pages";
 
 type ServicoPageProps = {
   params: Promise<{
@@ -25,66 +25,65 @@ function getPublicSiteUrl() {
   }
 }
 
-function isExternalUrl(url: string) {
-  return /^https?:\/\//i.test(url);
-}
-
 export async function generateStaticParams() {
-  const servicos = await getServicos();
-  return servicos.map((servico) => ({ slug: servico.slug }));
+  const pages = await getCosmicPages();
+  return pages.map((page) => ({ slug: page.slug }));
 }
 
 export async function generateMetadata({ params }: ServicoPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const servico = await getServicoBySlug(slug);
+  const page = await getCosmicPageBySlug(slug);
   const siteUrl = getPublicSiteUrl();
 
-  if (!servico) {
+  if (!page) {
     return {
-      title: "Serviço não encontrado",
+      title: "Serviço não encontrado | TechMotors",
+      description: "A página de serviço solicitada não foi encontrada.",
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
   }
 
-  const canonicalUrl = siteUrl ? `${siteUrl}/servicos/${servico.slug}` : undefined;
-  const serviceDescription = servico.descricaoLonga ?? servico.descricao;
-  const imageUrl = servico.imagemUrl;
+  const canonicalUrl = siteUrl ? `${siteUrl}/servicos/${page.slug}` : undefined;
 
   return {
-    title: servico.titulo,
-    description: serviceDescription,
+    title: `${page.title} | Serviços | TechMotors`,
+    description: page.description || `Confira detalhes sobre ${page.title} na TechMotors.`,
     alternates: canonicalUrl
       ? {
           canonical: canonicalUrl,
         }
       : undefined,
     openGraph: {
-      title: servico.titulo,
-      description: serviceDescription,
+      title: `${page.title} | Serviços | TechMotors`,
+      description: page.description || `Confira detalhes sobre ${page.title} na TechMotors.`,
       url: canonicalUrl,
       type: "article",
-      images: imageUrl
+      images: page.imageUrl
         ? [
             {
-              url: imageUrl,
-              alt: `Imagem do serviço ${servico.titulo}`,
+              url: page.imageUrl,
+              alt: `Imagem do serviço ${page.title}`,
             },
           ]
         : undefined,
     },
     twitter: {
-      card: imageUrl ? "summary_large_image" : "summary",
-      title: servico.titulo,
-      description: serviceDescription,
-      images: imageUrl ? [imageUrl] : undefined,
+      card: page.imageUrl ? "summary_large_image" : "summary",
+      title: `${page.title} | Serviços | TechMotors`,
+      description: page.description || `Confira detalhes sobre ${page.title} na TechMotors.`,
+      images: page.imageUrl ? [page.imageUrl] : undefined,
     },
   };
 }
 
 export default async function ServicoDetalhesPage({ params }: ServicoPageProps) {
   const { slug } = await params;
-  const servico = await getServicoBySlug(slug);
+  const page = await getCosmicPageBySlug(slug);
 
-  if (!servico) {
+  if (!page) {
     notFound();
   }
 
@@ -96,58 +95,22 @@ export default async function ServicoDetalhesPage({ params }: ServicoPageProps) 
         </Link>
 
         <div className="mt-6">
-          <h1 className="text-3xl font-bold text-black sm:text-4xl">{servico.titulo}</h1>
-          <p className="mt-4 text-lg text-gray-700">{servico.descricao}</p>
-          {servico.descricaoLonga ? (
-            <p className="mt-4 text-base leading-7 text-gray-700">{servico.descricaoLonga}</p>
-          ) : null}
+          <h1 className="text-3xl font-bold text-black sm:text-4xl">{page.title}</h1>
+          <p className="mt-4 text-lg text-gray-700">
+            {page.description || "Conteúdo em atualização. Entre em contato para mais detalhes."}
+          </p>
         </div>
 
-        {servico.imagemUrl ? (
+        {page.imageUrl ? (
           <Image
-            src={servico.imagemUrl}
-            alt={`Imagem do serviço ${servico.titulo}`}
+            src={page.imageUrl}
+            alt={`Imagem do serviço ${page.title}`}
             width={1200}
             height={700}
             className="mt-8 h-72 w-full border border-gray-200 object-cover sm:h-96"
             priority
           />
         ) : null}
-
-        {servico.itens && servico.itens.length > 0 ? (
-          <div className="mt-10 border-t border-gray-200 pt-8">
-            <h2 className="text-2xl font-bold text-black">O que inclui</h2>
-            <ul className="mt-4 list-disc space-y-2 pl-5 text-gray-700">
-              {servico.itens.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
-
-        <div className="mt-10 border-t border-gray-200 pt-8">
-          <h2 className="text-2xl font-bold text-black">Precisa desse serviço?</h2>
-          <p className="mt-2 text-gray-700">
-            Fale com nossa equipe para tirar dúvidas e agendar atendimento.
-          </p>
-          {servico.ctaTitulo && servico.ctaUrl ? (
-            <Link
-              href={servico.ctaUrl}
-              target={isExternalUrl(servico.ctaUrl) ? "_blank" : undefined}
-              rel={isExternalUrl(servico.ctaUrl) ? "noopener noreferrer" : undefined}
-              className="mt-5 inline-flex bg-black px-6 py-3 text-sm font-semibold text-white transition hover:bg-gray-900"
-            >
-              {servico.ctaTitulo}
-            </Link>
-          ) : (
-            <Link
-              href="/contato"
-              className="mt-5 inline-flex bg-black px-6 py-3 text-sm font-semibold text-white transition hover:bg-gray-900"
-            >
-              Fale Conosco
-            </Link>
-          )}
-        </div>
       </section>
     </main>
   );

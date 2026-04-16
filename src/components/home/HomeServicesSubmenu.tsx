@@ -2,20 +2,16 @@
 
 import { useState } from "react";
 
-const defaultSections = [
-  { id: "troca-de-oleo", label: "Troca de Óleo" },
-  { id: "manutencao-especializada", label: "Manutenção Especializada" },
-  { id: "alinhamento-balanceamento", label: "Alinhamento e Balanceamento" },
-];
-
-type HomeServicesSubmenuProps = {
-  sections?: Array<{
-    id: string;
-    label: string;
-  }>;
+type PageMenuItem = {
+  slug: string;
+  title: string;
 };
 
-export default function HomeServicesSubmenu({ sections = defaultSections }: HomeServicesSubmenuProps) {
+type HomeServicesSubmenuProps = {
+  pages: PageMenuItem[];
+};
+
+export default function HomeServicesSubmenu({ pages }: HomeServicesSubmenuProps) {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
@@ -67,13 +63,14 @@ export default function HomeServicesSubmenu({ sections = defaultSections }: Home
           id="home-services-links"
           className="mx-auto flex max-w-7xl flex-col items-stretch gap-2 px-4 py-3"
         >
-          {sections.map((section) => (
-            <li key={section.id} className="w-full">
+          {pages.length === 0 ? <li>Nenhuma página disponível.</li> : null}
+          {pages.map((page) => (
+            <li key={page.slug} className="w-full">
               <a
-                href={`#${section.id}`}
+                href={`/servicos/${page.slug}`}
                 className="inline-flex w-full justify-center rounded-none border border-black bg-black px-4 py-2 text-center text-sm font-semibold text-white transition-colors duration-300 hover:bg-gray-900"
               >
-                {section.label}
+                {page.title}
               </a>
             </li>
           ))}
@@ -81,13 +78,14 @@ export default function HomeServicesSubmenu({ sections = defaultSections }: Home
       </div>
 
       <ul className="mx-auto hidden max-w-7xl flex-wrap items-center justify-center gap-3 px-4 py-1 sm:gap-4 sm:px-6 lg:px-8 md:flex">
-        {sections.map((section) => (
-          <li key={section.id}>
+        {pages.length === 0 ? <li>Nenhuma página disponível.</li> : null}
+        {pages.map((page) => (
+          <li key={page.slug}>
             <a
-              href={`#${section.id}`}
+              href={`/servicos/${page.slug}`}
               className="inline-flex rounded-none border border-black bg-black px-4 py-2 text-sm font-semibold text-white transition-colors duration-300 hover:bg-gray-900"
             >
-              {section.label}
+              {page.title}
             </a>
           </li>
         ))}
